@@ -1,0 +1,49 @@
+<?xml version = '1.0' encoding = 'windows-1252'?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
+  <filter>
+    <filter-name>JpsFilter</filter-name>
+    <filter-class>oracle.security.jps.ee.http.JpsFilter</filter-class>
+    <init-param>
+      <param-name>enable.anonymous</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>JpsFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+  </filter-mapping>
+  <servlet>
+    <servlet-name>TuxedoSchedule</servlet-name>
+    <servlet-class>oracle.tuxedo.scheduler.TuxedoSchedule</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TuxedoSchedule</servlet-name>
+    <url-pattern>/TuxedoSchedule</url-pattern>
+  </servlet-mapping>
+  <context-param>
+    <description>Properties path</description>
+    <param-name>properties.path</param-name>
+    <param-value>D:\InformaPago\BAMProject_2012_08_14\BAMDemo\TuxedoLogProcessor</param-value>
+  </context-param> 
+  <context-param>
+    <description>Delay in seconds</description>
+    <param-name>seconds.delay</param-name>
+    <param-value>300</param-value>
+  </context-param>
+  <context-param>
+    <description>Quantity of threads</description>
+    <param-name>quantity.threads</param-name>
+    <param-value>3</param-value>
+  </context-param>
+  <resource-ref>
+   <res-ref-name>tm/TimerManager</res-ref-name>
+   <res-type>commonj.timers.TimerManager</res-type>
+   <res-auth>Container</res-auth>
+   <res-sharing-scope>Unshareable</res-sharing-scope>
+  </resource-ref>
+</web-app>
